@@ -1,6 +1,6 @@
 [\*\*Read this in English\*\*](./README.md)
 
-![GoldHEN Version](https://img.shields.io/badge/GoldHen-v2.4b18.3-yellow)
+![GoldHEN Version](https://img.shields.io/badge/GoldHEN-v2.4b18.5-yellow)
 ![PS4](https://img.shields.io/badge/PS4-9.00-blue)
 
 
@@ -44,7 +44,7 @@
 
 1. قم بفتح متصفح الإنترنت على جهاز PS4 بإصدار 9.00.
 
-2. انتقل إلى [الموقع](https://minaadel551.github.io/ps4host/) الذي يستضيف هذه الملفات.
+2. انتقل إلى [الموقع](minaadel551.github.io/PS4Free/) الذي يستضيف هذه الملفات.
 
 3. سيتم تخزين الصفحة في ذاكرة التخزين المؤقت للمتصفح تلقائيًا.
 

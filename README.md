@@ -1,6 +1,6 @@
 [\*\*Read this in Arabic\*\*](./README\_AR.md)
 
-![GoldHEN Version](https://img.shields.io/badge/GoldHen-v2.4b18.3-yellow)
+![GoldHEN Version](https://img.shields.io/badge/GoldHEN-v2.4b18.5-yellow)
 ![PS4](https://img.shields.io/badge/PS4-9.00-blue)
 
 
@@ -47,7 +47,7 @@ Key Features:
 
 1. Open the internet browser on your PS4 with firmware 9.00.
 
-2. Go to the host [website](https://minaadel551.github.io/ps4host/).
+2. Go to the host [website](minaadel551.github.io/PS4Free/).
 
 3. The page will be automatically cached in the browser.
 
