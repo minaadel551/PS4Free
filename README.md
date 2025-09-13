@@ -47,7 +47,7 @@ Key Features:
 
 1. Open the internet browser on your PS4 with firmware 9.00.
 
-2. Go to the host [website](minaadel551.github.io/PS4Free/).
+2. Go to the host [website](https://minaadel551.github.io/ps4free).
 
 3. The page will be automatically cached in the browser.
 
