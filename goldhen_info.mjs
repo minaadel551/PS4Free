@@ -4,8 +4,8 @@
  */
 
 // معلومات الإصدار
-export const GOLDHEN_VERSION = '2.4b18.4';
-export const GOLDHEN_DATE = '2023-07-09';
+export const GOLDHEN_VERSION = '2.4b18.5';
+export const GOLDHEN_DATE = '2025-08-10';
 
 // دالة للتحقق من إصدار GoldHEN المثبت
 export function checkGoldHENVersion() {
