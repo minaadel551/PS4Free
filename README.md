@@ -11,7 +11,7 @@
 
 ## Overview
 
-This project is an automatic PS4 9.00 jailbreak that uses PSFree and Lapse to load GoldHEN v2.4b18.4. It provides a simple and reliable way to jailbreak your PS4 console running firmware 9.00.
+This project is an automatic PS4 9.00 jailbreak that uses PSFree and Lapse to load GoldHEN v2.4b18.6. It provides a simple and reliable way to jailbreak your PS4 console running firmware 9.00.
 
 ## New Improvements
 
