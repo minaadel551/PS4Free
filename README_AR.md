@@ -1,6 +1,6 @@
 [\*\*Read this in English\*\*](./README.md)
 
-![GoldHEN Version](https://img.shields.io/badge/GoldHEN-v2.4b18.5-yellow)
+![GoldHEN Version](https://img.shields.io/badge/GoldHEN-v2.4b18.6-yellow)
 ![PS4](https://img.shields.io/badge/PS4-9.00-blue)
 
 
