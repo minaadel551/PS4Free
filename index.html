@@ -15,23 +15,21 @@
             font-family: "Segoe UI", Tahoma, sans-serif;
         }
 
-        /* خلفية الاسم */
         .background-text {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             font-size: 16vw;
-			letter-spacing: 50px;
+            letter-spacing: 30px;
             font-weight: bold;
-            color: rgba(255, 255, 255, 0.05); /* لون رمادي خافت وشفاف جداً ليعطي عمقاً */
-			-webkit-text-stroke: 2px #8b0000; /* يرسم حدوداً خارجية باللون الرمادي الفخم */
+            color: rgba(255, 255, 255, 0.05);
+            -webkit-text-stroke: 2px #8b0000;
             z-index: -1;
             user-select: none;
             font-family: Arial, sans-serif;
         }
         
-        /* صور الزوايا */
         .corner-image {
             position: fixed;
             width: 250px;
@@ -40,7 +38,6 @@
         .top-right { top: 20px; right: 20px; }
         .bottom-left { bottom: 50px; left: 20px; }
 
-        /* العناوين */
         h1 {
             margin-top: 40px;
             font-size: 40px;
@@ -55,37 +52,29 @@
             text-shadow: 1px 1px 2px #000;
         }
 
-        /* تصميم المربع (الكونسول) */
-       /* --- تصميم المربع المذهل (Neon Cyberpunk Style) --- */
         #console {
             width: 60%;
-            height: 260px;
+            height: 295px;
             margin: 20px auto;
-            background-color: rgba(0, 0, 0, 0.85); /* خلفية داكنة جداً لتباين أفضل */
-            
-            /* الحواف الزرقاء المضيئة */
+            background-color: rgba(0, 0, 0, 0.85);
             border: 1px solid #00aaff; 
-
-            /* السحر هنا: ظلال متعددة لعمل تأثير توهج ثلاثي الأبعاد */
             box-shadow: 
-                0 0 10px rgba(0, 170, 255, 0.5),  /* توهج داخلي ناعم */
-                0 0 20px rgba(0, 170, 255, 0.3),  /* توهج متوسط */
-                0 0 40px rgba(0, 170, 255, 0.1),  /* هالة خارجية كبيرة */
-                inset 0 0 15px rgba(0, 170, 255, 0.2); /* إضاءة خفيفة داخل المربع */
-
-            border-radius: 12px; /* انحناء ناعم */
+                0 0 10px rgba(0, 170, 255, 0.5),
+                0 0 20px rgba(0, 170, 255, 0.3),
+                0 0 40px rgba(0, 170, 255, 0.1),
+                inset 0 0 15px rgba(0, 170, 255, 0.2);
+            border-radius: 12px;
             padding: 20px;
             text-align: left;
-            font-family: "Courier New", monospace; /* خط كلاسيكي للهاكرز */
+            font-family: "Courier New", monospace;
             font-size: 18px;
             color: #ffffff;
             overflow-y: auto;
             position: relative;
             z-index: 2;
-            transition: box-shadow 0.3s ease-in-out; /* حركة ناعمة */
+            transition: box-shadow 0.3s ease-in-out;
         }
         
-        /* لمسة إضافية: عند مرور الماوس يزداد التوهج */
         #console:hover {
             box-shadow: 
                 0 0 15px rgba(0, 170, 255, 0.7),
@@ -94,13 +83,12 @@
             border-color: #4dc3ff;
         }
 
-        /* تصميم الزر */
         #jailbreakBtn {
             margin-top: 10px;
             padding: 12px 40px;
             font-size: 20px;
             font-weight: bold;
-            background: #007acc; /* أزرق */
+            background: #007acc;
             color: #fff;
             border: 2px solid #005a9e;
             border-radius: 6px;
@@ -124,7 +112,6 @@
             box-shadow: none;
         }
 
-        /* الفوتر */
         .footer-bar {
             position: fixed;
             left: 0;
@@ -145,10 +132,12 @@
 
     </style>
     <script>
-        // التحقق من الكاش عند التحميل
-        if (window.applicationCache.status == '0') {
-            window.location.replace("cache.html");
-        }
+        // إصلاح خطأ الكاش: التحقق من وجود الخاصية أولاً لتجنب الأخطاء على الكمبيوتر
+        try {
+            if (window.applicationCache && window.applicationCache.status == '0') {
+                window.location.replace("cache.html");
+            }
+        } catch(e) {}
     </script>
 </head>
 <body>
@@ -175,14 +164,10 @@
         Developed by: <a href="https://github.com/minaadel551" target="_blank">Mina Adel</a>
     </div>
 
- <script>
-        /* مأخوذ من الملف المستقر 1.html 
-           تم دمج منطق الاستقرار مع رسالة الترحيب الخاصة بـ Mina Adel
-        */
-
+    <script>
         const outputConsole = document.getElementById("console");
-
-        // دالة الطباعة (بنفس تنسيقك)
+        
+        // دالة الطباعة
         window.log = (msg, color="#ffffff") => { 
             if(color == "red") color = "#ff4444";
             if(color == "green") color = "#00ff00";
@@ -190,11 +175,9 @@
             outputConsole.scrollTop = outputConsole.scrollHeight;
         };
 
-        // --- كود الاستقرار من الملف 1.html ---
-        // معالجة الأخطاء الصامتة التي قد تسبب مشاكل
+        // معالجة الأخطاء
         addEventListener('unhandledrejection', event => {
             const reason = event.reason;
-            // نكتفي بطباعتها في الكونسول بدلاً من التنبيه المزعج
             window.log(`Unhandled Rejection: ${reason}`, "red");
         });
         
@@ -204,31 +187,29 @@
             return true; 
         });
 
-        // --- زر التشغيل (المنطق المستقر) ---
+        // زر التشغيل
         document.getElementById("jailbreakBtn").addEventListener("click", async () => {
             const btn = document.getElementById("jailbreakBtn");
             
-            // 1. تعطيل الزر فوراً كما في الملف المستقر
             btn.disabled = true;
             btn.innerHTML = "Running Exploit...";
-            outputConsole.innerHTML = ""; // تنظيف الشاشة
+            outputConsole.innerHTML = ""; 
 
-            // 2. التشغيل المباشر (بدون تنظيف ذاكرة وبدون تأخير)
             try {
-                // استدعاء الثغرة
+                // تشغيل الثغرة (بدون تأخير لضمان الاستقرار)
                 await doJBwithPSFreeLapseExploit(); 
                 
-                // -----------------------------------------------------------
-                // هنا فقط الجزء الخاص بك (الرسالة الترحيبية) بعد النجاح
-                // -----------------------------------------------------------
-                
-                // التحقق البسيط من وجود أخطاء ظاهرة في النصوص
+                // الفحص الذكي للأخطاء
                 var logContent = outputConsole.innerText.toLowerCase();
-                if (logContent.includes("error") || logContent.includes("failed")) {
-                    throw new Error("Exploit reported failure.");
+                if (logContent.includes("unsupported") || 
+                    logContent.includes("error") || 
+                    logContent.includes("failed") || 
+                    logContent.includes("not initialized")) {
+                    
+                    throw new Error("Exploit failed based on logs.");
                 }
 
-                // رسالة النجاح الخاصة بـ Mina Adel
+                // --- النجاح ---
                 window.log("<br>==================================", "#555555");
                 window.log(`Host Created By: <span style="color: gold; font-weight: bold; font-size: 20px; text-shadow: 0 0 10px gold;">MINA ADEL</span>`, "#ffffff");
                 window.log(`<a href="https://github.com/minaadel551" target="_blank" style="color: #007acc; text-decoration: none; font-weight: bold;">github.com/minaadel551</a>`, "#ffffff");
@@ -240,15 +221,27 @@
                 btn.style.borderColor = "#00ff00";
 
             } catch (error) {
-                // في حالة الفشل
-                window.log("An error occured during exploit: " + error, "red");
-                btn.disabled = false;
-                btn.innerHTML = "Retry Jailbreak";
+                // --- الفشل ---
+                if (!outputConsole.innerText.toLowerCase().includes("error")) {
+                    window.log("An error occured: " + error, "red");
+                }
+                
+                // تغيير شكل الزر للأحمر
+                btn.innerHTML = "Jailbreak Failed! Click to Reload";
                 btn.style.background = "#b30000";
+                btn.style.borderColor = "#ff0000";
+                btn.disabled = false;
+
+                // استبدال الزر لحذف الأمر القديم ووضع أمر إعادة التحميل
+                var newBtn = btn.cloneNode(true);
+                btn.parentNode.replaceChild(newBtn, btn);
+                
+                // عند الضغط عليه يقوم بعمل Refresh
+                newBtn.addEventListener("click", () => { 
+                    window.location.reload(); 
+                });
             }
         });
     </script>
-	
- 
 </body>
 </html>
