@@ -175,10 +175,14 @@
         Developed by: <a href="https://github.com/minaadel551" target="_blank">Mina Adel</a>
     </div>
 
-    <script>
+ <script>
+        /* مأخوذ من الملف المستقر 1.html 
+           تم دمج منطق الاستقرار مع رسالة الترحيب الخاصة بـ Mina Adel
+        */
+
         const outputConsole = document.getElementById("console");
-        
-        // دالة الطباعة
+
+        // دالة الطباعة (بنفس تنسيقك)
         window.log = (msg, color="#ffffff") => { 
             if(color == "red") color = "#ff4444";
             if(color == "green") color = "#00ff00";
@@ -186,45 +190,45 @@
             outputConsole.scrollTop = outputConsole.scrollHeight;
         };
 
-        // تحسين الاستقرار: تنظيف الذاكرة
-        function memoryCleanup() {
-            try {
-                window.log("Optimizing Memory...", "#ffff00");
-                for(let i = 0; i < 50; i++) { new ArrayBuffer(1024 * 1024); }
-            } catch(e) {}
-        }
+        // --- كود الاستقرار من الملف 1.html ---
+        // معالجة الأخطاء الصامتة التي قد تسبب مشاكل
+        addEventListener('unhandledrejection', event => {
+            const reason = event.reason;
+            // نكتفي بطباعتها في الكونسول بدلاً من التنبيه المزعج
+            window.log(`Unhandled Rejection: ${reason}`, "red");
+        });
+        
+        addEventListener('error', event => {
+            const reason = event.error;
+            window.log(`Unhandled Error: ${reason}`, "red");
+            return true; 
+        });
 
-        // دالة التشغيل
-        async function runExploit() {
+        // --- زر التشغيل (المنطق المستقر) ---
+        document.getElementById("jailbreakBtn").addEventListener("click", async () => {
             const btn = document.getElementById("jailbreakBtn");
             
+            // 1. تعطيل الزر فوراً كما في الملف المستقر
             btn.disabled = true;
             btn.innerHTML = "Running Exploit...";
-            outputConsole.innerHTML = ""; 
+            outputConsole.innerHTML = ""; // تنظيف الشاشة
 
-            // تنظيف الذاكرة
-            memoryCleanup();
-            
-            // انتظار بسيط للاستقرار
-            await new Promise(r => setTimeout(r, 1000)); 
-
-            window.log("Initializing Exploit...", "#007acc");
-            
+            // 2. التشغيل المباشر (بدون تنظيف ذاكرة وبدون تأخير)
             try {
-                // 1. تشغيل الثغرة
+                // استدعاء الثغرة
                 await doJBwithPSFreeLapseExploit(); 
                 
                 // -----------------------------------------------------------
-                // التحقق الذكي: فحص محتوى المربع للتأكد من عدم وجود أخطاء
+                // هنا فقط الجزء الخاص بك (الرسالة الترحيبية) بعد النجاح
                 // -----------------------------------------------------------
-                var logContent = outputConsole.innerText.toLowerCase();
                 
-                if (logContent.includes("error") || logContent.includes("failed") || logContent.includes("unsupported")) {
-                    // إذا وجدنا كلمات خطأ، نلقي خطأً يدوياً لنذهب إلى الـ Catch
-                    throw new Error("Exploit process reported a failure.");
+                // التحقق البسيط من وجود أخطاء ظاهرة في النصوص
+                var logContent = outputConsole.innerText.toLowerCase();
+                if (logContent.includes("error") || logContent.includes("failed")) {
+                    throw new Error("Exploit reported failure.");
                 }
 
-                // --- في حالة النجاح فقط (لم يتم العثور على أخطاء) ---
+                // رسالة النجاح الخاصة بـ Mina Adel
                 window.log("<br>==================================", "#555555");
                 window.log(`Host Created By: <span style="color: gold; font-weight: bold; font-size: 20px; text-shadow: 0 0 10px gold;">MINA ADEL</span>`, "#ffffff");
                 window.log(`<a href="https://github.com/minaadel551" target="_blank" style="color: #007acc; text-decoration: none; font-weight: bold;">github.com/minaadel551</a>`, "#ffffff");
@@ -232,32 +236,19 @@
                 window.log("Enjoy!", "#00ff00");
 
                 btn.innerHTML = "Jailbreak Done";
-                btn.style.background = "#006400"; // أخضر
+                btn.style.background = "#006400"; 
                 btn.style.borderColor = "#00ff00";
-                btn.disabled = true; // تعطيل الزر عند النجاح
 
             } catch (error) {
-                // --- في حالة الفشل (يتحول للأحمر) ---
-                // ملاحظة: الخطأ مكتوب بالفعل في المربع من ملف bundle، لذا نغير الزر فقط
-                
+                // في حالة الفشل
+                window.log("An error occured during exploit: " + error, "red");
                 btn.disabled = false;
-                btn.innerHTML = "Jailbreak Failed! Retry";
-                btn.style.background = "#b30000"; // أحمر
-                btn.style.borderColor = "#ff0000";
-                
-                // تأثير اهتزاز للزر (Animation) ليعرف المستخدم بوجود خطأ
-                btn.animate([
-                    { transform: 'translateX(0)' },
-                    { transform: 'translateX(-5px)' },
-                    { transform: 'translateX(5px)' },
-                    { transform: 'translateX(0)' }
-                ], { duration: 300 });
+                btn.innerHTML = "Retry Jailbreak";
+                btn.style.background = "#b30000";
             }
-        }
-
-        // ربط الزر بوظيفة التشغيل (الآن سيعمل لأن الزر تم تحميله)
-        document.getElementById("jailbreakBtn").addEventListener("click", runExploit);
-
+        });
     </script>
+	
+ 
 </body>
 </html>
