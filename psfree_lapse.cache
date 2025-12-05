@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# v2.0 (Mina Adel Stable)
+
+index.html
+cache.html
+bundle.js
+payload.bin
+
+left.png
+right.png
+
+NETWORK:
+*

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html manifest="psfree_lapse.cache">
+<head>
+<title>Installing Host...</title>
+<style>
+    body {
+        background-color: #000000;
+        color: white;
+        text-align: center;
+        margin: 0;
+        overflow: hidden;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .background-text {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 15vw;
+        font-weight: bold;
+        color: rgba(139, 0, 0, 0.4);
+        z-index: -1;
+        user-select: none;
+        font-family: Arial, sans-serif;
+    }
+    
+    .corner-image {
+        position: fixed;
+        width: 250px;
+        z-index: 1;
+    }
+    .top-right { top: 20px; right: 20px; }
+    .bottom-left { bottom: 50px; left: 20px; }
+
+    h1 {
+        margin-top: 40px;
+        font-size: 40px;
+        font-style: italic;
+        text-shadow: 2px 2px 5px #000;
+    }
+
+    /* تصميم المربع للكاش */
+    #console {
+        width: 60%;
+        height: 200px; /* ارتفاع أقل للكاش */
+        margin: 40px auto;
+        background-color: rgba(0, 0, 0, 0.6);
+        border: 1px solid #444;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0px 0px 30px rgba(0, 100, 255, 0.15), inset 0px 0px 20px rgba(0,0,0,0.8);
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .progress-text {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #ffffff;
+        text-shadow: 1px 1px 2px #000;
+    }
+
+    #myProgress {
+        width: 100%;
+        background-color: #333;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #555;
+    }
+
+    #myBar {
+        width: 0%;
+        height: 35px;
+        background: linear-gradient(to right, #8b0000, #ff0000); /* تدرج أحمر يليق بـ Mina Adel */
+        text-align: center;
+        line-height: 35px;
+        color: white;
+        font-weight: bold;
+        transition: width 0.2s;
+    }
+
+    .footer-bar {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #000000;
+        color: #cccccc;
+        padding: 10px 0;
+        font-size: 16px;
+        border-top: 1px solid #222222;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+    }
+    .footer-bar a { color: #ffffff; text-decoration: none; font-weight: bold; }
+
+</style>
+<script>
+    history.replaceState(null,null,'index.html');
+    var histlength=history.length;
+    history.go(-histlength);
+
+    function DLProgress(e){
+        var Percent=(Math.round(e.loaded / e.total * 100));
+        var bar=document.getElementById("myBar");
+        var text=document.getElementById("msg");
+        
+        text.innerHTML="Installing Offline Cache... " + Percent + "%";
+        bar.style.width=Percent + "%";
+        bar.innerHTML=Percent + "%";
+    }
+
+    function DisplayCacheProgress(){
+        var bar=document.getElementById("myBar");
+        var text=document.getElementById("msg");
+        
+        text.innerHTML="Cache Installed Successfully!";
+        text.style.color = "#00ff00"; // أخضر عند النجاح
+        bar.style.background = "linear-gradient(to right, #006400, #00ff00)";
+
+        setTimeout(function(){
+            text.innerHTML="Redirecting to Exploit...";
+        }, 1500);
+
+        setTimeout(function(){
+            window.location.href = "index.html";
+        }, 3000);
+    }
+
+    window.applicationCache.addEventListener("progress",DLProgress,false);
+    window.applicationCache.oncached=function(e){DisplayCacheProgress();};
+    window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+    window.applicationCache.onnoupdate=function(e){window.location.href = "index.html";};
+    window.applicationCache.onerror=function(e){document.getElementById("msg").innerHTML="Error Installing Cache"; document.getElementById("msg").style.color="red";};
+</script>
+</head>
+<body>
+
+    <div class="background-text">MINA ADEL</div>
+    
+    <img src="right.png" class="corner-image top-right">
+    <img src="left.png" class="corner-image bottom-left">
+
+    <h1>PS4 Auto Jailbreak By MINA ADEL</h1>
+
+    <div id="console">
+        <div id="msg" class="progress-text">Checking Cache...</div>
+        <div id="myProgress">
+            <div id="myBar">0%</div>
+        </div>
+    </div>
+
+    <div class="footer-bar">
+        Developed by: <a href="https://github.com/minaadel551" target="_blank">Mina Adel</a>
+    </div>
+
+</body>
+</html>
