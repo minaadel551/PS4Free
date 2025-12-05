@@ -11,7 +11,7 @@
 
 ## Overview
 
-This project is an automatic PS4 9.00 jailbreak that uses PSFree and Lapse to load GoldHEN v2.4b18.6. It provides a simple and reliable way to jailbreak your PS4 console running firmware 9.00.
+This project is an automatic PS4 7.00 - 9.60 jailbreak that uses PSFree and Lapse to load GoldHEN v2.4b18.6. It provides a simple and reliable way to jailbreak your PS4 console running firmware 9.00.
 
 ## New Improvements
 
@@ -35,7 +35,7 @@ This project is an automatic PS4 9.00 jailbreak that uses PSFree and Lapse to lo
 
 Key Features:
 
-🎯 Firmware Support: PS4 9.00 (99% stability rate)
+🎯 Firmware Support: PS4 7.00 - 9.60 (99% stability rate)
 
 🔗 Kernel Access: Integrated Lapse kernel exploit for full system access
 
@@ -45,7 +45,7 @@ Key Features:
 
 ## How to Use
 
-1. Open the internet browser on your PS4 with firmware 9.00.
+1. Open the internet browser on your PS4 with firmware 7.00 - 9.60.
 
 2. Go to the host [website](https://minaadel551.github.io/PS4Free/).
 
@@ -81,7 +81,7 @@ Key Features:
 
 ⦁	Lapse: Kernel exploit for firmware 9.00 (by ChendoChap, Specter, Znullptr, sleirsgoevy)
 
-⦁	GoldHEN v2.4b18.4: Main jailbreak payload (by SiSTRo)
+⦁	GoldHEN : Main jailbreak payload (by SiSTRo)
 
 ⦁	Advanced Memory Management System (by Mina Adel):
 
