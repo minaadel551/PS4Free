@@ -5260,7 +5260,7 @@ async function doJBwithPSFreeLapseExploit() {
           return;
         }
         window.log("GoldHen loaded", "green");
-        window.log("\nPSFree & Lapse exploit with AIO fixes by Mina Adel");
+        window.log("\nPSFree & Lapse exploit with AIO fixes by ABC & Mina Adel");
       } else {
         window.log("An error occured during Lapse\nPlease restart console and try again...", "red");
         return;
