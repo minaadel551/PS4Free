@@ -179,14 +179,36 @@
  <script>
 
         const outputConsole = document.getElementById("console");
+        
+        // متغيرات للتحكم في الطباعة الصامتة
+        let isExploitRunning = false;
+        let logBuffer = [];
 
-        // دالة الطباعة (بنفس تنسيقك)
+        // دالة الطباعة الذكية
         window.log = (msg, color="#ffffff") => { 
             if(color == "red") color = "#ff4444";
             if(color == "green") color = "#00ff00";
-            outputConsole.innerHTML += `<span style="color:${color}; text-shadow: 1px 1px 2px black;">${msg}</span><br>`; 
-            outputConsole.scrollTop = outputConsole.scrollHeight;
+            
+            let formattedMsg = `<span style="color:${color}; text-shadow: 1px 1px 2px black;">${msg}</span><br>`; 
+            
+            if (isExploitRunning) {
+                // أثناء الهجوم: خزن الرسائل في الذاكرة ولا تلمس الشاشة لتوفير موارد المعالج!
+                logBuffer.push(formattedMsg);
+            } else {
+                // في الوضع الطبيعي: اطبع مباشرة
+                outputConsole.innerHTML += formattedMsg; 
+                outputConsole.scrollTop = outputConsole.scrollHeight;
+            }
         };
+
+        // دالة لطباعة كل ما تم تخزينه دفعة واحدة
+        function flushLogs() {
+            if (logBuffer.length > 0) {
+                outputConsole.innerHTML += logBuffer.join("");
+                outputConsole.scrollTop = outputConsole.scrollHeight;
+                logBuffer = []; // تفريغ الذاكرة
+            }
+        }
 
         // --- كود الاستقرار من الملف 1.html ---
         // معالجة الأخطاء الصامتة التي قد تسبب مشاكل
@@ -206,36 +228,39 @@
        document.getElementById("jailbreakBtn").addEventListener("click", async () => {
 		const btn = document.getElementById("jailbreakBtn");
 		
-		// 1. التعديل الاحترافي (DOM Stripping): إخفاء العناصر الثقيلة فوراً لإراحة محرك WebCore
+		// إخفاء العناصر لتخفيف الضغط
 		document.querySelector('.background-text').style.display = 'none';
 		document.querySelectorAll('.corner-image').forEach(img => img.style.display = 'none');
 		
-		// 2. تعطيل الزر وتنظيف الشاشة
 		btn.disabled = true;
 		btn.innerHTML = "Injecting Payload...";
-		// تخفيف تأثيرات النيون من الكونسول أثناء الهجوم لتوفير الذاكرة الرسومية
 		outputConsole.style.boxShadow = "none"; 
 		outputConsole.innerHTML = ""; 
 
-		// إجبار الشاشة على التحديث
 		void document.body.offsetHeight;
-		outputConsole.innerHTML += "<span style='color:#00aaff;'>[+] Stripping DOM & Flushing Memory...</span><br>";
+		
+		// استخدام الدالة العادية قبل تفعيل الوضع الصامت
+		window.log("[+] Stripping DOM & Flushing Memory...", "#00aaff");
+		window.log("[+] Executing Kernel Exploit silently... Please wait", "#ffff00");
 
-		// 3. تأخير التنفيذ (The Magic Trick)
 		setTimeout(async () => {
-			// حجز وتفريغ الذاكرة لإجبار Garbage Collector
 			for(let i=0; i<5; i++) { new ArrayBuffer(1024 * 1024 * 5); }
 			
+			// تفعيل الوضع الصامت (تجميد الشاشة) لمنع تداخل الـ DOM مع النواة
+			isExploitRunning = true; 
+			
 			try {
-				outputConsole.innerHTML += "<span style='color:#ffff00;'>[+] Executing Kernel Exploit...</span><br>";
 				await doJBwithPSFreeLapseExploit();
+				
+				// إلغاء الوضع الصامت وطباعة كل ما حدث في الخلفية دفعة واحدة
+				isExploitRunning = false;
+				flushLogs();
 			
 				var logContent = outputConsole.innerText.toLowerCase();
 				if (logContent.includes("error") || logContent.includes("failed")) {
 					throw new Error("Exploit reported failure.");
 				}
 
-				// 4. إعادة المظهر الجمالي بعد النجاح
 				outputConsole.style.boxShadow = "0 0 10px rgba(0, 170, 255, 0.5), 0 0 20px rgba(0, 170, 255, 0.3)";
 				window.log("<br>==================================", "#555555");
 				window.log(`Host Created By: <span style="color: gold; font-weight: bold; font-size: 20px; text-shadow: 0 0 10px gold;">MINA ADEL</span>`, "#ffffff");
@@ -248,21 +273,21 @@
 				btn.style.borderColor = "#00ff00";
 
 			} catch (error) {
-				// 5. التعديل الاحترافي (Auto-Reload): منع الـ Kernel Panic في حال الفشل
+				// إلغاء الوضع الصامت لطباعة الأخطاء
+				isExploitRunning = false;
+				flushLogs();
+				
 				window.log("[-] Exploit Failed! Memory is corrupted.", "red");
 				window.log("[!] Auto-reloading WebKit Process to prevent Kernel Panic...", "orange");
 				
 				btn.innerHTML = "Rebooting WebKit...";
 				btn.style.background = "#b30000";
 				
-				// إعادة تحميل الصفحة تلقائياً بعد ثانيتين للحصول على Process نظيف 100%
-				setTimeout(() => {
-					window.location.reload();
-				}, 2000);
+				setTimeout(() => { window.location.reload(); }, 2000);
 			}
 		}, 1500); 
 	});
-   </script>
+ </script>
 	
  
 </body>
