@@ -203,49 +203,66 @@
         });
 
         // --- زر التشغيل (المنطق المستقر) ---
-        document.getElementById("jailbreakBtn").addEventListener("click", async () => {
-            const btn = document.getElementById("jailbreakBtn");
-            
-            // 1. تعطيل الزر فوراً كما في الملف المستقر
-            btn.disabled = true;
-            btn.innerHTML = "Running Exploit...";
-            outputConsole.innerHTML = ""; // تنظيف الشاشة
+       document.getElementById("jailbreakBtn").addEventListener("click", async () => {
+		const btn = document.getElementById("jailbreakBtn");
+		
+		// 1. التعديل الاحترافي (DOM Stripping): إخفاء العناصر الثقيلة فوراً لإراحة محرك WebCore
+		document.querySelector('.background-text').style.display = 'none';
+		document.querySelectorAll('.corner-image').forEach(img => img.style.display = 'none');
+		
+		// 2. تعطيل الزر وتنظيف الشاشة
+		btn.disabled = true;
+		btn.innerHTML = "Injecting Payload...";
+		// تخفيف تأثيرات النيون من الكونسول أثناء الهجوم لتوفير الذاكرة الرسومية
+		outputConsole.style.boxShadow = "none"; 
+		outputConsole.innerHTML = ""; 
 
-            // 2. التشغيل المباشر (بدون تنظيف ذاكرة وبدون تأخير)
-            try {
-                // استدعاء الثغرة
-                await doJBwithPSFreeLapseExploit(); 
-                
-                // -----------------------------------------------------------
-                // هنا فقط الجزء الخاص بك (الرسالة الترحيبية) بعد النجاح
-                // -----------------------------------------------------------
-                
-                // التحقق البسيط من وجود أخطاء ظاهرة في النصوص
-                var logContent = outputConsole.innerText.toLowerCase();
-                if (logContent.includes("error") || logContent.includes("failed")) {
-                    throw new Error("Exploit reported failure.");
-                }
+		// إجبار الشاشة على التحديث
+		void document.body.offsetHeight;
+		outputConsole.innerHTML += "<span style='color:#00aaff;'>[+] Stripping DOM & Flushing Memory...</span><br>";
 
-                // رسالة النجاح الخاصة بـ Mina Adel
-                window.log("<br>==================================", "#555555");
-                window.log(`Host Created By: <span style="color: gold; font-weight: bold; font-size: 20px; text-shadow: 0 0 10px gold;">MINA ADEL</span>`, "#ffffff");
-                window.log(`<a href="https://github.com/minaadel551" target="_blank" style="color: #007acc; text-decoration: none; font-weight: bold;">github.com/minaadel551</a>`, "#ffffff");
-                window.log("==================================", "#555555");
-                window.log("Enjoy!", "#00ff00");
+		// 3. تأخير التنفيذ (The Magic Trick)
+		setTimeout(async () => {
+			// حجز وتفريغ الذاكرة لإجبار Garbage Collector
+			for(let i=0; i<5; i++) { new ArrayBuffer(1024 * 1024 * 5); }
+			
+			try {
+				outputConsole.innerHTML += "<span style='color:#ffff00;'>[+] Executing Kernel Exploit...</span><br>";
+				await doJBwithPSFreeLapseExploit();
+			
+				var logContent = outputConsole.innerText.toLowerCase();
+				if (logContent.includes("error") || logContent.includes("failed")) {
+					throw new Error("Exploit reported failure.");
+				}
 
-                btn.innerHTML = "Jailbreak Done";
-                btn.style.background = "#006400"; 
-                btn.style.borderColor = "#00ff00";
+				// 4. إعادة المظهر الجمالي بعد النجاح
+				outputConsole.style.boxShadow = "0 0 10px rgba(0, 170, 255, 0.5), 0 0 20px rgba(0, 170, 255, 0.3)";
+				window.log("<br>==================================", "#555555");
+				window.log(`Host Created By: <span style="color: gold; font-weight: bold; font-size: 20px; text-shadow: 0 0 10px gold;">MINA ADEL</span>`, "#ffffff");
+				window.log(`<a href="https://github.com/minaadel551" target="_blank" style="color: #007acc; text-decoration: none; font-weight: bold;">github.com/minaadel551</a>`, "#ffffff");
+				window.log("==================================", "#555555");
+				window.log("Enjoy!", "#00ff00");
 
-            } catch (error) {
-                // في حالة الفشل
-                window.log("An error occured during exploit: " + error, "red");
-                btn.disabled = false;
-                btn.innerHTML = "Retry Jailbreak";
-                btn.style.background = "#b30000";
-            }
-        });
-    </script>
+				btn.innerHTML = "Jailbreak Done";
+				btn.style.background = "#006400"; 
+				btn.style.borderColor = "#00ff00";
+
+			} catch (error) {
+				// 5. التعديل الاحترافي (Auto-Reload): منع الـ Kernel Panic في حال الفشل
+				window.log("[-] Exploit Failed! Memory is corrupted.", "red");
+				window.log("[!] Auto-reloading WebKit Process to prevent Kernel Panic...", "orange");
+				
+				btn.innerHTML = "Rebooting WebKit...";
+				btn.style.background = "#b30000";
+				
+				// إعادة تحميل الصفحة تلقائياً بعد ثانيتين للحصول على Process نظيف 100%
+				setTimeout(() => {
+					window.location.reload();
+				}, 2000);
+			}
+		}, 1500); 
+	});
+   </script>
 	
  
 </body>
